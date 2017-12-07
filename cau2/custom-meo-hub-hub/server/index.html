@@ -1,0 +1,134 @@
+<html>
+    <head>
+        <title>IoT</title>
+        <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+        <script src="https://unpkg.com/vue"></script>
+        <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.4"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.18/c3.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.18/c3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.0/d3.min.js" charset="utf-8"></script>
+    </head>
+    <body>
+        <div id="chart"></div>
+        <div id="app">
+            <template>
+                <!-- `checked` should be true or false -->
+                <el-checkbox v-model="lights[0]" @change="sendCommand">Light 1</el-checkbox>
+                <el-checkbox v-model="lights[1]" @change="sendCommand">Light 2</el-checkbox>
+                <el-checkbox v-model="lights[2]" @change="sendCommand">Light 3</el-checkbox>
+                <el-checkbox v-model="lights[3]" @change="sendCommand">Light 4</el-checkbox>
+                <el-checkbox v-model="lights[4]" @change="sendCommand">Light 5</el-checkbox>
+                <el-button
+                    plain
+                    @click="drawChart">
+                    Draw Chart
+                </el-button>
+
+                <el-button
+                    plain
+                    @click="showLights">
+                    Show lights
+                </el-button>
+
+                <input v-model="lightList.name">
+
+                <div v-for="(l, index) in lightList">
+                    <label for="led-$index"></label>
+                    <el-switch id="led-$index" v-model="value">
+                    </el-switch>
+                </div>
+                
+
+                
+                <ul>
+                    
+                    < v-for="l in lightList">{{l.name}} 
+                        
+                    </li>
+                </ul>
+                
+                
+            </template>
+        </div>
+        <script>
+            var chart = null;
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    lights: [false, false, false, false, false],
+                    firstLineDataSet: ['data1'],
+                    secondLineDataSet: ['data2'],
+                    lightList: [{name: "A"}, {name: "B"}],
+                    value: true
+                },
+                methods: {
+                    drawChart() {                        
+                        chart = c3.generate({
+                            bindto: '#chart',
+                            data: {
+                                columns: [
+                                    this.firstLineDataSet,
+                                    this.secondLineDataSet,
+                                ],
+                                type: 'spline'
+                            }
+                        });
+
+                        this.$notify({
+                        title: 'Success',
+                        message: 'This is a success message',
+                        type: 'success'
+                        });
+                    },
+                    addData() {
+                        this.firstLineDataSet.push(Math.random()*10);
+                        if (this.firstLineDataSet.length > 11) {
+                            this.firstLineDataSet.splice(1, 1);
+                        }
+
+                        this.secondLineDataSet.push(Math.random()*20);
+                        if (this.secondLineDataSet.length > 11) {
+                            this.secondLineDataSet.splice(1, 1);
+                        }
+                        
+                        chart.load({
+                            columns: [
+                                this.firstLineDataSet,
+                                this.secondLineDataSet,
+                            ]
+                        });
+                    },
+                    sendCommand: function() {
+                        var values  = [];
+                        for (var index = 0; index < 5; index++) {
+                            values.push(this.lights[index] ? "1" : "0");
+                        }
+                        var payload = {
+                            "lights": values
+                        }
+                        this.$http.put('/lights', payload).then(response => {
+                            console.log("Result: ", response.body);
+                        });
+
+                    },
+                    showLights: function() {
+                        this.$http.get('/lights', {"dataType" : "json"}).then(response => {
+                            console.log("Response: ", response);
+                            console.log("Response.body: ", response.body);
+                            this.lightList = response.body;
+                            console.log("Light array: ", JSON.stringify(this.lightList));
+                        });
+                    }
+                },
+                mounted: function() {
+                    this.drawChart();
+
+                    setInterval(function() {
+                        this.addData();
+                    }.bind(this), 1000); 
+                }
+            })
+        </script>
+    </body>
+</html>

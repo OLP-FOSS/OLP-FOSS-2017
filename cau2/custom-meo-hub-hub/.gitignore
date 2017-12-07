@@ -1,0 +1,13 @@
+*node_modules/*
+
+mosquitto/config/mosquitto\.conf
+
+mosquitto/data/\.gitkeep
+
+mosquitto/data/mosquitto\.db
+
+mosquitto/log/\.gitkeep
+
+mosquitto/log/mosquitto\.log
+
+node-red/data/\.gitkeep
