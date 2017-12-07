@@ -1,0 +1,8 @@
+void initRFID() {
+  ;
+}
+
+void loopRFID() {
+  ;
+}
+

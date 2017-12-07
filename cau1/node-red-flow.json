@@ -3,7 +3,7 @@
         "id": "661a68ad.2b032",
         "type": "meo-esp-in",
         "z": "6f436e7c.86888",
-        "name": "",
+        "name": "ESP IN",
         "deviceId": "team02",
         "broker": "fb9ab180.0438d",
         "x": 150,
@@ -18,7 +18,7 @@
         "id": "61c8d6ab.1ab7d",
         "type": "ui_chart",
         "z": "6f436e7c.86888",
-        "name": "",
+        "name": "CHART",
         "group": "e2344602.6346c",
         "order": 0,
         "width": "6",
@@ -49,7 +49,7 @@
             "#c5b0d5"
         ],
         "useOldStyle": false,
-        "x": 530,
+        "x": 540,
         "y": 140,
         "wires": [
             [],
@@ -60,17 +60,49 @@
         "id": "cca436cc.e3b5a8",
         "type": "function",
         "z": "6f436e7c.86888",
-        "name": "Process",
-        "func": "var temp = Math.round(Math.random() * 40);\nvar hum = Math.round(Math.random() * 100);\n\nvar msg1 = { \n    topic: \"Nhiệt độ\",\n    payload: temp \n};\nvar msg2 = { \n    topic: \"Độ ẩm\",\n    payload: hum \n};\nreturn [[msg1, msg2]];\n\n// msg.payload = temp;\n// msg.topic = \"temp\";\n\n// return msg;",
+        "name": "PROCESS",
+        "func": "var temp = msg.payload.V1;\nvar hum = msg.payload.V2;\n\nvar msg1 = { \n    topic: \"Nhiệt độ\",\n    payload: temp \n};\nvar msg2 = { \n    topic: \"Độ ẩm\",\n    payload: hum \n};\nreturn [[msg1, msg2]];",
         "outputs": "1",
         "noerr": 0,
-        "x": 340,
+        "x": 350,
         "y": 140,
+        "wires": [
+            [
+                "61c8d6ab.1ab7d",
+                "abdef4ac.553ea"
+            ]
+        ]
+    },
+    {
+        "id": "df02ae38.ce0008",
+        "type": "inject",
+        "z": "6f436e7c.86888",
+        "name": "CLEAR CHARTS",
+        "topic": "",
+        "payload": "[]",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 280,
+        "y": 60,
         "wires": [
             [
                 "61c8d6ab.1ab7d"
             ]
         ]
+    },
+    {
+        "id": "abdef4ac.553ea",
+        "type": "debug",
+        "z": "6f436e7c.86888",
+        "name": "DEBUG",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 540,
+        "y": 200,
+        "wires": []
     },
     {
         "id": "fb9ab180.0438d",
