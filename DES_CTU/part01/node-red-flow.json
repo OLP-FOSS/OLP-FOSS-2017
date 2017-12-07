@@ -1,0 +1,142 @@
+[
+    {
+        "id": "661a68ad.2b032",
+        "type": "meo-esp-in",
+        "z": "6f436e7c.86888",
+        "name": "ESP IN",
+        "deviceId": "team02",
+        "broker": "fb9ab180.0438d",
+        "x": 150,
+        "y": 140,
+        "wires": [
+            [
+                "cca436cc.e3b5a8"
+            ]
+        ]
+    },
+    {
+        "id": "61c8d6ab.1ab7d",
+        "type": "ui_chart",
+        "z": "6f436e7c.86888",
+        "name": "CHART",
+        "group": "e2344602.6346c",
+        "order": 0,
+        "width": "6",
+        "height": "4",
+        "label": "",
+        "chartType": "line",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "-10",
+        "ymax": "100",
+        "removeOlder": "10",
+        "removeOlderPoints": "50",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "useOneColor": false,
+        "colors": [
+            "#ff3f09",
+            "#083cf0",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "useOldStyle": false,
+        "x": 540,
+        "y": 140,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "cca436cc.e3b5a8",
+        "type": "function",
+        "z": "6f436e7c.86888",
+        "name": "PROCESS",
+        "func": "var temp = msg.payload.V1;\nvar hum = msg.payload.V2;\n\nvar msg1 = { \n    topic: \"Nhiệt độ\",\n    payload: temp \n};\nvar msg2 = { \n    topic: \"Độ ẩm\",\n    payload: hum \n};\nreturn [[msg1, msg2]];",
+        "outputs": "1",
+        "noerr": 0,
+        "x": 350,
+        "y": 140,
+        "wires": [
+            [
+                "61c8d6ab.1ab7d",
+                "abdef4ac.553ea"
+            ]
+        ]
+    },
+    {
+        "id": "df02ae38.ce0008",
+        "type": "inject",
+        "z": "6f436e7c.86888",
+        "name": "CLEAR CHARTS",
+        "topic": "",
+        "payload": "[]",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 280,
+        "y": 60,
+        "wires": [
+            [
+                "61c8d6ab.1ab7d"
+            ]
+        ]
+    },
+    {
+        "id": "abdef4ac.553ea",
+        "type": "debug",
+        "z": "6f436e7c.86888",
+        "name": "DEBUG",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 540,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "fb9ab180.0438d",
+        "type": "mqtt-broker",
+        "z": "",
+        "broker": "mqtt",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": ""
+    },
+    {
+        "id": "e2344602.6346c",
+        "type": "ui_group",
+        "z": "",
+        "name": "Biểu đồ",
+        "tab": "20653b92.ccd5e4",
+        "order": 1,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "20653b92.ccd5e4",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Home",
+        "icon": "dashboard"
+    }
+]
