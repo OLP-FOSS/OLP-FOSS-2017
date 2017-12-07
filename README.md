@@ -5,11 +5,11 @@
 Please submit your reports based on following format:
 
 ```
-<team_name>_<university_name>/
+Chim Canh Cut - Dai hoc Cong nghe thong tin/
 |
-+- part01
-+- part02
-+- <team_name>_members.md
++- Trương Trung Hiếu
++- Bùi Thanh Hải
++- Nguyễn Trung Duyên
 ```
 
 # Time
