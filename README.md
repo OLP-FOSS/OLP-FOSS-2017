@@ -33,3 +33,5 @@ Ho Chi Minh City University of Education
 - Vietnam OpenStack Community
 - Docker Hanoi Community
 - IoT Maker Vietnam
+- Fablab Saigon
+
