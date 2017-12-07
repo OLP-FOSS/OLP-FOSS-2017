@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+  mqtt:
+    image: eclipse-mosquitto:1.4.10
+    deploy:
+     restart_policy: 
+      condition: on-failure
+    ports:
+     - 1883:1883
+    container_name: mqtt
+    volumes:
+     - ./Data/mqtt/data:/mosquitto/data
+     - ./Data/mqtt/log:/mosquitto/log
+    networks:
+     - olp
+
+  node-red:
+    image: machinedata/node-red
+    deploy:
+     restart_policy: 
+      condition: on-failure
+    container_name: nodered
+    volumes:
+     - ./Data/nodered:/data
+    ports:
+     - 1880:1880
+    networks:
+     - olp
+
+networks:
+ olp:
+
+
