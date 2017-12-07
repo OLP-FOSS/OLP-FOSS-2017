@@ -8,7 +8,7 @@
 
 // ======= Thay đổi các thông tin ở đây =========
 
-const char* default_mqtt_server = "192.168.43.216";
+const char* default_mqtt_server = "192.168.43.131";
 const char* default_mqtt_port = "1883";
 const char* device_id = "team02";
 
@@ -51,17 +51,17 @@ IPAddress ip;
 
 void setup() {
   Serial.begin(115200);
-  
+
   //init Pin In/Out
   initPin();
-  
+
   //Init WiFiManager
   initWiFiManager();
 
-//  //init mDNS
-//  //initmDNS();
- 
-//  //init MQTT
+  //  //init mDNS
+  //  //initmDNS();
+
+  //  //init MQTT
   initMQTT();
   Serial.println("Setup Successful");
 }
@@ -106,7 +106,7 @@ inline unsigned char Virtual_U1() {
 }
 
 inline unsigned char Virtual_U2() {
-  getTemperature();
+  getHumidity();
   return humidity;
 }
 
@@ -124,7 +124,7 @@ inline unsigned char Virtual_U5() {
 
 /////////////////////////////// Function input/////////////////////
 inline void Function_F1() {
-  Serial.println("F1");
+  //  Serial.println("F1");
   humidity = dht.readHumidity();
 }
 
