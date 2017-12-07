@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Yêu Cầu Khách Hàng</title>
+    <%- include('../public/component/script.ejs')%>
+    <link rel="stylesheet" href="https://use.fontawesome.com/00fe14cb4f.css">
+</head>
+
+<body ng-controller="myController">
+    <div class="container">
+
+        <%- include('../public/component/navbar.ejs')%>
+        <br><br>
+        <div class="row">
+            <div class="col-sm-4">
+
+            </div>
+            <div class="col-sm-4">
+                    <input type="text" placeholder="Tìm Kiếm" class="form-control" ng-model="txtTimKiem">                    
+            </div>
+            <div class="col-sm-2">
+                <button class="btn btn-success" disabled ><i class="fa fa-search" aria-hidden="true" style="margin-right: 10px;"></i>Tìm Kiếm</button>
+            </div>
+            <br><br><br>
+        </div>
+            <div class="row">
+                    <!-- <h1 style="margin-left: 360px;">Yêu Cầu Khách Hàng</h1> -->
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                <strong style="font-size: 18px">Họ Tên</strong>
+                            </th>
+                            <th>
+                                <strong style="font-size: 18px">Số Điện Thoại</strong>
+                            </th>
+                            <th>
+                                <strong style="font-size: 18px">Mã Thẻ</strong>
+                            </th>
+                            <th>
+                                <strong style="font-size: 18px; color: red">Số Phòng</strong>
+                            </th>
+                            <th>
+                                <strong >Yêu Cầu</strong>
+                            </th>
+                            <th>
+                                <strong style="font-size: 18px; color: red">Thời Gian Yêu Cầu</strong>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr 
+                        ng-repeat="i in getData | filter : txtTimKiem : i.mongo.soPhong " 
+                        ng-if="i.mongo.hoTen !== '' && i.mongo.description !== '' && i.mongo.soPhong!== ''">
+                            <td><strong>{{i.mongo.hoTen}}</strong></td>
+                            <td>{{i.mongo.sdt}}</td>
+                            <td>{{i.mongo.maThe}}</td>
+                            <td><strong style="color: red">{{i.mongo.soPhong}}</strong></td>
+                            <td>{{i.mongo.description}}</td>
+                            <td>{{i.mongo.time}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        window.onload = function () {
+            $.get("/api/danh-sach/", function (data, status) {
+                localStorage.setItem('dataLocal', data);
+            });
+        }
+
+        var app = angular.module('myApp', ['firebase']);
+        app.controller("myController", function ($scope, $firebase, $http, $log) {
+            $scope.demo = "Hello Khánh Long";
+            var ref = new Firebase("https://test-node-red-a0ee2.firebaseio.com");
+            var sync = $firebase(ref);
+            $scope.getData = sync.$asArray();
+
+
+            console.log($scope.getData);
+            // var getDataz = localStorage.getItem('dataLocal');
+
+            // for(let i = 0 ; i < $scope.getData.length ; i++){
+            //     $scope.getData[i].zz = 'asdas';
+            // }
+            // console.log($scope.getData);
+            // $scope.zzzzzzzzzz = function () {
+            //     var a = $('#btnPhong').attr("data-phong");
+            //     $.get("/api/danh-sach/"+a, function (data, status) {
+            //         // console.log(data[0].soPhong);
+            //         $scope.temp = data[0].soPhong;
+            //     });
+            // }
+            // var ref2 = new Firebase("https://makerthon-a799b.firebaseio.com/");
+            // var sync2 = $firebase(ref2);
+            // $scope.getData2 = sync2.$asArray();
+        });
+
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
+</body>
+
+</html>
