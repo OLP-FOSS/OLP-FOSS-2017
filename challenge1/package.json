@@ -1,0 +1,16 @@
+{
+  "name": "node-red-project",
+  "description": "A Node-RED Project",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "node-red flows.json"
+  },
+  "dependencies": {
+    "json2xml": "^0.1.3",
+    "node-red": "*",
+    "node-red-contrib-chatbot": "^0.8.6",
+    "node-red-contrib-sonos": "0.0.7",
+    "node-red-contrib-telegrambot": "^2.7.1",
+    "node-red-dashboard": "~2.6.1"
+  }
+}
