@@ -1,0 +1,51 @@
+version: '2'
+services:
+    mqtt:
+        image: eclipse-mosquitto
+        ports:
+          - 1883:1883
+        networks:
+          - bkcloud-net
+    
+    influxdb:
+        image: influxdb
+        environment:
+          - INFLUXDB_DB=iot
+        ports:
+          - 8086:8086
+        networks:
+          - bkcloud-net
+
+    mysql:
+        image: mysql
+        restart: always
+        environment:
+          - MYSQL_ROOT_PASSWORD=bkcloud
+          - MYSQL_DATABASE=iot
+          - MYSQL_USER=bkcloud
+          - MYSQL_PASSWORD=bkcloud
+        ports:
+          - 3306:3306 
+        networks:
+          - bkcloud-net
+    
+    nodered:
+        image: nodered/node-red-docker
+        restart: always
+        volumes:
+           - ./node-red/data:/data
+        ports:
+           - 1880:1880
+        networks:
+           - bkcloud-net
+        stdin_open: true
+        tty: true
+        external_links:
+           - mqtt:mqtt
+           - mysql:mysql
+           - influxdb:influxdb
+        command: [sh, -c, "cd /data && npm i mysql@2.15.0 influx@5.0.7 express@4.16.0 mustache@2.3.0 moment@2.19.2 node-red-dashboard && cd /usr/src/node-red && npm start -- --userDir /data"]
+
+networks:
+    bkcloud-net:
+        

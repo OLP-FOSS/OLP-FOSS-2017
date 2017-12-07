@@ -32,4 +32,4 @@ Ho Chi Minh City University of Education
 - Maker Hanoi
 - Vietnam OpenStack Community
 - Docker Hanoi Community
-- IoT Maker Vietnam 
+- IoT Maker Vietnam

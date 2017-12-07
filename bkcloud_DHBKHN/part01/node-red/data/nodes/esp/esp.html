@@ -1,0 +1,122 @@
+<!--
+  Copyright JS Foundation and other contributors, http://js.foundation
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<style>
+</style>
+<script type="text/x-red" data-template-name="esp-in">
+    <div class="form-row" id="input-broker-form-row">
+        <label for="node-input-broker"><i class="fa fa-globe"></i>Broker</label>
+        <input type="text" id="node-input-broker">
+    </div>
+    <div class="form-row">
+        <label for="node-input-topic"><i class="icon-tag"></i> Topic</label>
+        <input type="text" id="node-input-topic" placeholder="Enter topic subcribed by broker">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+
+
+<script type="text/x-red" data-help-name="esp-in">
+    <p>A example about node input</p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('esp-in', {
+        category: 'input',
+        color: '#f79267',
+        defaults: {
+            name: {
+                value: ""
+            },
+            broker: {
+                value: "",
+                type: "mqtt-broker"
+            },
+            topic: {
+                value: "",
+                required: true
+            },
+        },
+        inputs: 0,
+        outputs: 1,
+        icon: "./icons/esp.png",
+        label: function () {
+            return this.name || "esp in";
+
+        },
+        oneditprepare: function () {
+        },
+        oneditsave: function () {
+        },
+    });
+</script>
+
+
+<script type="text/x-red" data-template-name="esp-out">
+    <div class="form-row" id="input-broker-form-row">
+        <label for="node-input-broker"><i class="fa fa-globe"></i>Broker</label>
+        <input type="text" id="node-input-broker">
+    </div>
+    <div class="form-row">
+        <label for="node-input-topic"><i class="icon-tag"></i> Topic</label>
+        <input type="text" id="node-input-topic" placeholder="Enter topic subcribed by broker">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+
+
+<script type="text/x-red" data-help-name="esp-out">
+    <p>A example about node input</p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('esp-out', {
+        category: 'output',
+        color: '#f79267',
+        defaults: {
+            name: {
+                value: ""
+            },
+            broker: {
+                value: "",
+                type: "mqtt-broker"
+            },
+            topic: {
+                value: "",
+                required: true
+            },
+        },
+        inputs: 1,
+        outputs: 0,
+        icon: "./icons/esp.png",
+        label: function () {
+            return this.name || "esp out";
+
+        },
+        oneditprepare: function () {
+        },
+        oneditsave: function () {
+        },
+    });
+</script>
