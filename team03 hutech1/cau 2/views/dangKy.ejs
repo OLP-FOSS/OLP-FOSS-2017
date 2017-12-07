@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Đăng Ký</title>
+    
+</head>
+
+<body ng-controller="myController">
+    <div class="container">
+            <%- include('../public/component/navbar.ejs')%>
+        <div class="row">
+            <div class="col-sm-4">
+            </div>
+            <div class="col-sm-4" style="margin-top: 200px;">
+                <form method="POST" action="/dang-ky">
+                    <div class="form-group">
+                        <label>Họ và Tên</label>
+                        <input type="text" class="form-control"  name="hoTen" placeholder="Họ Và Tên" >
+                    </div>
+                    <div class="form-group">
+                        <label>Số Điện Thoại</label>
+                        <input type="text" class="form-control" name="sdt" placeholder="Số Điện Thoại" >
+                    </div>
+                    <div class="form-group">
+                        <label>Số Lượng Người</label>
+                        <input type="text" class="form-control" name="soLuongNguoi" placeholder="Số Người" >
+                    </div>
+                    <div class="form-group">
+                        <label>Mã Thẻ (RFID)</label>
+                        <input type="text" class="form-control" value="{{getData2[0].id}}" name="maThe">
+                    </div>
+                    <div class="form-group">
+                            <label>Số Phòng</label>
+                            <input type="text" class="form-control" name="soPhong" placeholder="Số Phòng" >
+                        </div>
+                    <div style="margin-left:200px;">
+                        <button type="submit" class="btn btn-success btn-lg"><span class="glyphicon glyphicon-ok"></span>Đăng Ký</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../public/component/script.ejs')%>
+    
+    <script>
+        var app = angular.module('myApp', ['firebase']);
+        app.controller("myController", function ($scope, $firebase, $http, $log) {
+            $scope.demo = "Hello Khánh Long";
+            // var ref = new Firebase("https://test-node-red-a0ee2.firebaseio.com");
+            // var sync = $firebase(ref);
+            // $scope.getData = sync.$asArray();
+
+
+            var ref2 = new Firebase("https://makerthon-a799b.firebaseio.com/");
+            var sync2 = $firebase(ref2);
+            $scope.getData2 = sync2.$asArray();
+        });
+    </script>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
+</body>
+
+</html>

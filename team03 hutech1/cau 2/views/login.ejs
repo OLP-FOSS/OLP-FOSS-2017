@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Login Form</title>
+    <link rel="stylesheet" href="./css/demo.css">
+    <link rel="stylesheet" href="./css/login.css">
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/00fe14cb4f.css">
+</head>
+
+
+
+<body ng-app="myApp">
+    
+    <div class="main-content" ng-controller="myController">
+        <!-- You only need this form and the form-login.css -->
+
+        <form class="form-login "  method="POST" action="/dang-ky">
+
+            <div class="form-log-in-with-email">
+
+                <div class="form-white-background">
+
+                    <div class="form-title-row">
+                        <h1>Đăng Ký Khách Hàng</h1>
+                    </div>
+
+                    <div class="form-row required">
+                            <label>
+                                <span>Họ và Tên</span>
+                                <input 
+                                    class="form-control" 
+                                    id="hoTen" 
+                                    min="7"
+                                    maxlength="30" 
+                                    name="hoTen" 
+                                    placeholder="Họ và Tên" 
+                                    required="required" 
+                                    type="text" 
+                                />
+                            </label>
+                        </div>
+
+                        <div class="form-row required">
+                                <label>
+                                    <span>Số Điện Thoại</span>
+                                    <input 
+                                        class="form-control" 
+                                        id="sdt" 
+                                        minlength="9"
+                                        maxlength="12"
+                                        name="sdt" 
+                                        placeholder="Số Điện Thoại" 
+                                        required="required" 
+                                    />
+                                </label>
+                            </div>
+
+                            <div class="form-row required">
+                                    <label>
+                                        <span>Số Người</span>
+                                        <input 
+                                            class="form-control" 
+                                            id="soLuongNguoi" 
+                                            name="soLuongNguoi" 
+                                            placeholder="Số Lượng Người" 
+                                            required="required" 
+                                            minlength="1"
+                                            max="3"
+                                        />
+                                    </label>
+                                </div>
+
+                                <div class="form-row required">
+                                        <label>
+                                            <span>Mã Thẻ</span>
+                                            <input 
+                                                class="form-control" 
+                                                id="maThe" 
+                                                name="maThe" 
+                                                placeholder="Mã Thẻ" 
+                                                required="required" 
+                                                value="{{getData2[0].id}}"
+                                            />
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="form-row required">
+                                            <label>
+                                                <span>Số Phòng</span>
+                                                <input 
+                                                    class="form-control" 
+                                                    id="soPhong" 
+                                                    name="soPhong" 
+                                                    placeholder="Số Phòng" 
+                                                    required="required" 
+                                                    minlength="2"
+                                                    max="3"
+                                                />
+                                            </label>
+                                        </div>
+                                        <div class="form-row required">
+                                            <label>
+                                                <span>Mật Khẩu Phòng</span>
+                                                <input 
+                                                type="password"
+                                                    class="form-control" 
+                                                    id="matKhau" 
+                                                    name="matKhau" 
+                                                    placeholder="Mật Khẩu Phòng" 
+                                                    required="required" 
+                                                    minlength="1"
+                                                    max="7"
+                                                />
+                                            </label>
+                                        </div>     
+                    <div class="form-row">
+                            <button type="submit"><i class="fa fa-check" aria-hidden="true" style="margin-right: 10px;"></i>Đăng Ký</button>
+                    </div>
+
+                </div>
+                <a href="/danh-sach" class="form-create-an-account"><i class="fa fa-database" aria-hidden="true" style="margin-right: 10px"></i>Danh Sách</a>
+            </div>
+
+           
+
+        </form>
+
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js"></script>
+    <script src="https://cdn.firebase.com/js/client/2.0.4/firebase.js"></script>
+    <script src="https://cdn.firebase.com/libs/angularfire/0.9.0/angularfire.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+            var app = angular.module('myApp', ['firebase']);
+            app.controller("myController", function ($scope, $firebase, $http, $log) {
+                $scope.demo = "Hello Khánh Long";
+                // var ref = new Firebase("https://test-node-red-a0ee2.firebaseio.com");
+                // var sync = $firebase(ref);
+                // $scope.getData = sync.$asArray();
+    
+    
+                var ref2 = new Firebase("https://makerthon-a799b.firebaseio.com/");
+                var sync2 = $firebase(ref2);
+                $scope.getData2 = sync2.$asArray();
+            });
+        </script>
+        </div>
+        <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
+    
+</body>
+
+</html>

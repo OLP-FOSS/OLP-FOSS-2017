@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/00fe14cb4f.css">
+    <style>
+        body{
+            font-size: 17px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container"> 
+        <%- include('../public/component/navbar.ejs')%>
+            <br>
+            <br>
+            <div class="row">
+                <div class="col-sm-4">
+
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" placeholder="Tìm Kiếm" class="form-control">
+                </div>
+                <div class="col-sm-2">
+                    <button class="btn btn-success">
+                        <i class="fa fa-search" aria-hidden="true" style="margin-right: 10px;"></i>Tìm Kiếm</button>
+                </div>
+                <br>
+                <br>
+                <br>
+            </div>
+            <div class="row">
+                <!-- <h1>Danh Sách Khách Hàng</h1> -->
+                <table class="table class="w3-animate-zoom"" >
+                    <thead>
+                        <tr>
+                            <th>
+                                <strong style="font-size:19px">Họ Và Tên</strong>
+                            </th>
+                            <th>
+                                <strong style="font-size:19px">Số Điện Thoại</strong>
+                            </th>
+                            <th>
+                                <strong style="font-size:19px">Số Lượng Người</strong>
+                            </th>
+                            <th>
+                                <strong style="font-size:19px">Mã Thẻ</strong>
+                            </th>
+                            <th>
+                                <strong style="font-size:19px">Số Phòng</strong>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%data.forEach(e =>{%>
+                            <tr>
+                                <td >
+                                    <strong style="color:red">
+                                        <%= e.hoTen%>
+                                    </strong>
+                                </td>
+                                <td>
+                                    <%= e.sdt%>
+                                </td>
+                                <td>
+                                    <%= e.soLuongNguoi%>
+                                </td>
+                                <td>
+                                    <%= e.maThe%>
+                                </td>
+                                <td >
+                                    <button class="btn btn-primary" style="padding: 10px 20px;">
+                                        <i class="fa fa-key" aria-hidden="true" style="margin-right:10px"></i>
+                                        <strong>
+                                            <%= e.soPhong%>
+                                        </strong>
+                                    </button>
+                                </td>
+                            </tr>
+                            <% })%>
+
+                    </tbody>
+                </table>
+            </div>
+    </div>
+</body>
+
+</html>
